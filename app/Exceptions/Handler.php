@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Domains\Common\Exceptions\ServiceException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -47,4 +49,27 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+	{
+		list($message, $code) = match(get_class($exception))
+		{
+			ServiceException::class => [
+				['other' => $exception->getMessage()],
+				$exception->getCode(),
+			],
+			ValidationException::class => [
+				$exception->validator->errors()->getMessages(),
+				422,
+			],
+			default => [
+				$exception->getMessage(),
+				400
+			]
+		};
+
+		return response()->json([
+			'errors' => $message,
+		], $code);
+	}
 }
