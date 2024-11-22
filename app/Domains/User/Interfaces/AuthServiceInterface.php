@@ -7,4 +7,5 @@ use App\Domains\User\Entities\UserEntity;
 interface AuthServiceInterface
 {
     public function tryToAuthorize(UserEntity $entity): void;
+    public function logout(): void;
 }

@@ -13,3 +13,14 @@ Route::group(
         Route::post('/login', [UserController::class, 'login']);
     }
 );
+
+Route::group(
+    [
+        'prefix' => 'users',
+        'middleware' => 'auth:sanctum'
+    ],
+    function()
+    {
+        Route::post('/logout', [UserController::class, 'logout']);
+    }
+);

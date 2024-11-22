@@ -21,4 +21,9 @@ class AuthService implements AuthServiceInterface
         if(!$isValidCredentials)
             throw new InvalidCredentialsException();
     }
+
+    public function logout(): void
+    {
+        request()->user()->currentAccessToken()->delete();
+    }
 }
