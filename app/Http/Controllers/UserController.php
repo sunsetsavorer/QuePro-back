@@ -10,10 +10,12 @@ use App\Domains\User\Repositories\AuthTokenRepository;
 use App\Domains\User\Repositories\UserRepository;
 use App\Domains\User\Services\AuthService;
 use App\Domains\User\UseCases\AuthorizeUser;
+use App\Domains\User\UseCases\GetUser;
 use App\Domains\User\UseCases\Logout;
 use App\Domains\User\UseCases\RegisterUser;
 use App\Http\Requests\User\AuthorizeUserRequest;
 use App\Http\Resources\User\AuthorizeUserResource;
+use App\Http\Resources\User\GetUserResource;
 use App\Http\Resources\User\LogoutResource;
 
 class UserController extends Controller
@@ -66,5 +68,16 @@ class UserController extends Controller
         $useCase();
 
         return new LogoutResource([]);
+    }
+
+    public function get(): GetUserResource
+    {
+        $useCase = new GetUser(
+            new UserRepository()
+        );
+
+        $result = $useCase();
+
+        return new GetUserResource($result);
     }
 }

@@ -7,4 +7,5 @@ use App\Domains\User\Entities\UserEntity;
 interface UserRepositoryInterface 
 {
     public function create(UserEntity $entity): int;
+    public function getById(int $id): UserEntity;
 }

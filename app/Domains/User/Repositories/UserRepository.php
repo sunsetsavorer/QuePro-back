@@ -4,6 +4,7 @@ namespace App\Domains\User\Repositories;
 
 use App\Models\User;
 use App\Domains\User\Entities\UserEntity;
+use App\Domains\User\Exceptions\NoSuchUserException;
 use App\Domains\User\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,5 +19,22 @@ class UserRepository implements UserRepositoryInterface
         ]);
 
         return $user->id;
+    }
+
+    public function getById(int $id): UserEntity
+    {
+        $user = User::find($id);
+
+        if(!$user)
+            throw new NoSuchUserException();
+
+        $user = $user->toArray();
+
+        $userEntity = new UserEntity();
+
+        $userEntity->setName($user['name']);
+        $userEntity->setEmail($user['email']);
+
+        return $userEntity;
     }
 }
