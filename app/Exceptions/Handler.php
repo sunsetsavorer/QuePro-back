@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use Domains\Common\Exceptions\ServiceException;
+use App\Domains\Common\Exceptions\ServiceException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Throwable;
