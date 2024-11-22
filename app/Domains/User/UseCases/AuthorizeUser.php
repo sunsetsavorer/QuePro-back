@@ -6,13 +6,13 @@ use App\Domains\Common\Exceptions\ServiceException;
 use App\Domains\User\DTOs\AuthorizeUserDTO;
 use App\Domains\User\Entities\UserEntity;
 use App\Domains\User\Exceptions\InvalidCredentialsException;
+use App\Domains\User\Interfaces\AuthServiceInterface;
 use App\Domains\User\Interfaces\AuthTokenRepositoryInterface;
-use App\Domains\User\Interfaces\UserRepositoryInterface;
 
 class AuthorizeUser
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository,
+        private AuthServiceInterface $authService,
         private AuthTokenRepositoryInterface $authTokenRepository
     ){}
 
@@ -24,7 +24,7 @@ class AuthorizeUser
             $entity->setEmail($dto->getEmail());
             $entity->setPassword($dto->getPassword());
 
-            $this->userRepository->tryToAuthorize($entity);
+            $this->authService->tryToAuthorize($entity);
 
             $token = $this->authTokenRepository->createByUserId(
                 auth()->user()->id

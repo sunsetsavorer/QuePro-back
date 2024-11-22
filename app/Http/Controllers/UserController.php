@@ -8,6 +8,7 @@ use App\Http\Resources\User\RegisterUserResource;
 use App\Domains\User\DTOs\RegisterUserDTO;
 use App\Domains\User\Repositories\AuthTokenRepository;
 use App\Domains\User\Repositories\UserRepository;
+use App\Domains\User\Services\AuthService;
 use App\Domains\User\UseCases\AuthorizeUser;
 use App\Domains\User\UseCases\RegisterUser;
 use App\Http\Requests\User\AuthorizeUserRequest;
@@ -40,7 +41,7 @@ class UserController extends Controller
         $data = $request->validated();
 
         $useCase = new AuthorizeUser(
-            new UserRepository(),
+            new AuthService(),
             new AuthTokenRepository()
         );
 

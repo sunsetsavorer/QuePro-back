@@ -4,9 +4,7 @@ namespace App\Domains\User\Repositories;
 
 use App\Models\User;
 use App\Domains\User\Entities\UserEntity;
-use App\Domains\User\Exceptions\InvalidCredentialsException;
 use App\Domains\User\Interfaces\UserRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface
@@ -20,18 +18,5 @@ class UserRepository implements UserRepositoryInterface
         ]);
 
         return $user->id;
-    }
-
-    public function tryToAuthorize(UserEntity $entity): void
-    {
-        $isValidCredentials = Auth::attempt(
-            [
-                'email' => $entity->getEmail(),
-                'password' => $entity->getPassword(),
-            ]
-        );
-
-        if(!$isValidCredentials)
-            throw new InvalidCredentialsException();
     }
 }
