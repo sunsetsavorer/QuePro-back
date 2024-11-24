@@ -14,9 +14,11 @@ use App\Domains\User\UseCases\GetUser;
 use App\Domains\User\UseCases\Logout;
 use App\Domains\User\UseCases\RegisterUser;
 use App\Http\Requests\User\AuthorizeUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\User\AuthorizeUserResource;
 use App\Http\Resources\User\GetUserResource;
 use App\Http\Resources\User\LogoutResource;
+use App\Http\Resources\User\UpdateUserResource;
 
 class UserController extends Controller
 {
@@ -76,7 +78,9 @@ class UserController extends Controller
             new UserRepository()
         );
 
-        $result = $useCase();
+        $result = $useCase(
+            auth()->user()->id
+        );
 
         return new GetUserResource($result);
     }

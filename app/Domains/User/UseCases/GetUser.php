@@ -12,12 +12,10 @@ class GetUser
         private UserRepositoryInterface $userRepository
     ){}
 
-    public function __invoke(): array
+    public function __invoke(int $id): array
     {
         try {
-            $userEntity = $this->userRepository->getById(
-                auth()->user()->id
-            );
+            $userEntity = $this->userRepository->getById($id);
 
             return [
                 'name' => $userEntity->getName(),
