@@ -34,6 +34,10 @@ class UserRepository implements UserRepositoryInterface
 
         $userEntity->setName($user['name']);
         $userEntity->setEmail($user['email']);
+        $userEntity->setCountry($user['country']);
+        $userEntity->setCity($user['city']);
+        $userEntity->setPhone($user['phone']);
+        $userEntity->setBio($user['bio']);
 
         return $userEntity;
     }

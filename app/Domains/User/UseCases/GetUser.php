@@ -22,6 +22,10 @@ class GetUser
             return [
                 'name' => $userEntity->getName(),
                 'email' => $userEntity->getEmail(),
+                'country' => $userEntity->getCountry(),
+                'city' => $userEntity->getCity(),
+                'phone' => $userEntity->getPhone(),
+                'bio' => $userEntity->getBio(),
             ];
 
         } catch (NoSuchUserException $e) {
