@@ -10,5 +10,6 @@ Route::group(
     function()
     {
         Route::get('/', [NewsController::class, 'getList']);
+        Route::get('/{slug}', [NewsController::class, 'getBySlug']);
     }
 );
