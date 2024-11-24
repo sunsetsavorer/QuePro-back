@@ -23,5 +23,6 @@ Route::group(
     {
         Route::post('/logout', [UserController::class, 'logout']);
         Route::get('/me', [UserController::class, 'get']);
+        Route::put('/me', [UserController::class, 'update']);
     }
 );

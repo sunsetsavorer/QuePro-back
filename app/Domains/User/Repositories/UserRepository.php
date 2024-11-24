@@ -41,4 +41,34 @@ class UserRepository implements UserRepositoryInterface
 
         return $userEntity;
     }
+
+    public function update(UserEntity $entity): array
+    {
+        $user = User::find(
+            $entity->getId()
+        );
+
+        if(!$user)
+            throw new NoSuchUserException();
+
+        $user->update([
+            'name' => $entity->getName(),
+            'email' => $entity->getEmail(),
+            'country' => $entity->getCountry(),
+            'city' => $entity->getCity(),
+            'bio' => $entity->getBio(),
+            'phone' => $entity->getPhone(),
+        ]);
+
+        $user = $user->toArray();
+
+        return [
+            'name' => $user['name'],
+            'email' => $user['email'],
+            'country' => $user['country'],
+            'city' => $user['city'],
+            'phone' => $user['phone'],
+            'bio' => $user['bio'],
+        ];
+    }
 }
