@@ -12,6 +12,6 @@ class Tournament extends Model
 
     public function discipline(): HasOne
     {
-        return $this->hasOne(TournamentDiscipline::class);
+        return $this->hasOne(TournamentDiscipline::class, 'id', 'tournament_discipline_id');
     }
 }
