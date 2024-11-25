@@ -2,7 +2,6 @@
 
 namespace App\Domains\User\UseCases;
 
-use App\Domains\Common\Exceptions\ServiceException;
 use App\Domains\User\Interfaces\AuthServiceInterface;
 
 class Logout
