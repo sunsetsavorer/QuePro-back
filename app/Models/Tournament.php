@@ -10,6 +10,14 @@ class Tournament extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'prize_fund',
+        'event_date',
+        'tournament_discipline_id',
+        'user_id',
+    ];
+
     public function discipline(): HasOne
     {
         return $this->hasOne(TournamentDiscipline::class, 'id', 'tournament_discipline_id');

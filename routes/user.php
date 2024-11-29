@@ -26,5 +26,6 @@ Route::group(
         Route::get('/me', [UserController::class, 'get']);
         Route::put('/me', [UserController::class, 'update']);
         Route::get('/me/tournaments', [TournamentController::class, 'getUserList']);
+        Route::post('/me/tournaments', [TournamentController::class, 'create']);
     }
 );

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Domains\Tournament\DTOs\CreateTournamentDTO;
 use App\Domains\Tournament\Repositories\TournamentRepository;
+use App\Domains\Tournament\UseCases\CreateTournament;
 use App\Domains\Tournament\UseCases\GetTournamentDisciplines;
 use App\Domains\Tournament\UseCases\GetTournamentsList;
 use App\Domains\Tournament\UseCases\GetUserTournamentsList;
+use App\Http\Requests\Tournament\CreateTournamentRequest;
+use App\Http\Resources\Tournament\CreateTournamentResource;
 use App\Http\Resources\Tournament\GetTournamentDisciplinesListResource;
 use App\Http\Resources\Tournament\GetTournamentsListResource;
 use App\Http\Resources\Tournament\GetUserTournamentsListResource;
@@ -45,5 +49,26 @@ class TournamentController extends Controller
         $result = $useCase();
 
         return new GetTournamentDisciplinesListResource($result);
+    }
+
+    public function create(CreateTournamentRequest $request): CreateTournamentResource
+    {
+        $data = $request->validated();
+
+        $useCase = new CreateTournament(
+            new TournamentRepository()
+        );
+
+        $result = $useCase(
+            new CreateTournamentDTO(
+                auth()->user()->id,
+                $data['name'],
+                $data['prize_fund'],
+                $data['discipline_id'],
+                $data['event_date']
+            )
+        );
+
+        return new CreateTournamentResource($result);
     }
 }
