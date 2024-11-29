@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('participation_requests', function (Blueprint $table) {
+        Schema::create('participation_entries', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Tournament::class);
             $table->string('team_name');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('participation_requests');
+        Schema::dropIfExists('participation_entries');
     }
 };
