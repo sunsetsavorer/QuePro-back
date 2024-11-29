@@ -20,4 +20,19 @@ class TournamentRepository implements TournamentRepositoryInterface
 
         return $tournaments;
     }
+
+    public function getByUserId(int $userId): array
+    {
+        $tournaments = Tournament::select([
+            'name',
+            'prize_fund',
+            'event_date',
+            'tournament_discipline_id',
+        ])->where('user_id', $userId)
+        ->with('discipline')
+        ->paginate(10)
+        ->toArray();
+
+        return $tournaments;
+    }
 }
