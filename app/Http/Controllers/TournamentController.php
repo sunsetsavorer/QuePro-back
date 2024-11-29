@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Domains\Tournament\Repositories\TournamentRepository;
+use App\Domains\Tournament\UseCases\GetTournamentDisciplines;
 use App\Domains\Tournament\UseCases\GetTournamentsList;
 use App\Domains\Tournament\UseCases\GetUserTournamentsList;
+use App\Http\Resources\Tournament\GetTournamentDisciplinesListResource;
 use App\Http\Resources\Tournament\GetTournamentsListResource;
 use App\Http\Resources\Tournament\GetUserTournamentsListResource;
 
@@ -32,5 +34,16 @@ class TournamentController extends Controller
         );
 
         return new GetUserTournamentsListResource($result);
+    }
+
+    public function getDisciplines(): GetTournamentDisciplinesListResource
+    {
+        $useCase = new GetTournamentDisciplines(
+            new TournamentRepository()
+        );
+
+        $result = $useCase();
+
+        return new GetTournamentDisciplinesListResource($result);
     }
 }

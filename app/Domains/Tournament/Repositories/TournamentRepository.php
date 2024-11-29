@@ -4,6 +4,7 @@ namespace App\Domains\Tournament\Repositories;
 
 use App\Domains\Tournament\Interfaces\TournamentRepositoryInterface;
 use App\Models\Tournament;
+use App\Models\TournamentDiscipline;
 
 class TournamentRepository implements TournamentRepositoryInterface
 {
@@ -34,5 +35,16 @@ class TournamentRepository implements TournamentRepositoryInterface
         ->toArray();
 
         return $tournaments;
+    }
+
+    public function getDisciplines(): array
+    {
+        $disciplines = TournamentDiscipline::select([
+            'id',
+            'name'
+        ])->get()
+        ->toArray();
+
+        return $disciplines;
     }
 }

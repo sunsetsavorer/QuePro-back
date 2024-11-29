@@ -10,5 +10,6 @@ Route::group(
     function ()
     {
         Route::get('/', [TournamentController::class, 'getList']);
+        Route::get('/disciplines', [TournamentController::class, 'getDisciplines']);
     }
 );
