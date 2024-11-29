@@ -18,6 +18,7 @@ class TournamentRepository implements TournamentRepositoryInterface
             'event_date',
             'tournament_discipline_id',
         ])->with('discipline')
+        ->orderBy('event_date', 'desc')
         ->paginate(10)
         ->toArray();
 
@@ -33,6 +34,7 @@ class TournamentRepository implements TournamentRepositoryInterface
             'tournament_discipline_id',
         ])->where('user_id', $userId)
         ->with('discipline')
+        ->orderBy('event_date', 'desc')
         ->paginate(10)
         ->toArray();
 
