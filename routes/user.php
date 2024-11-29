@@ -9,8 +9,8 @@ Route::group(
     ],
     function()
     {
-        Route::post('/register', [UserController::class, 'register']);
-        Route::post('/login', [UserController::class, 'login']);
+        Route::post('/signup', [UserController::class, 'register']);
+        Route::post('/signin', [UserController::class, 'login']);
     }
 );
 
@@ -21,7 +21,7 @@ Route::group(
     ],
     function()
     {
-        Route::post('/logout', [UserController::class, 'logout']);
+        Route::post('/signout', [UserController::class, 'logout']);
         Route::get('/me', [UserController::class, 'get']);
         Route::put('/me', [UserController::class, 'update']);
     }
