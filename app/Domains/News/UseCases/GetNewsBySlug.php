@@ -12,7 +12,7 @@ class GetNewsBySlug
         private NewsRepositoryInterface $newsRepository
     ){}
 
-    public function __invoke(string $slug)
+    public function __invoke(string $slug): array
     {
         try {
             return $this->newsRepository->getBySlug($slug);

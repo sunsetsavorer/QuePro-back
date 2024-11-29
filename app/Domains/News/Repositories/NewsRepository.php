@@ -15,7 +15,8 @@ class NewsRepository implements NewsRepositoryInterface
             'title',
             'publication_date',
             'picture_path',
-        ])->paginate(10)
+        ])->orderBy('publication_date', 'desc')
+        ->paginate(10)
         ->toArray();
 
         return $news;

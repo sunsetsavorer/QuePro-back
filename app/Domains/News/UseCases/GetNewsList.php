@@ -10,7 +10,7 @@ class GetNewsList
         private NewsRepositoryInterface $newsRepository
     ){}
 
-    public function __invoke()
+    public function __invoke(): array
     {
         return $this->newsRepository->getList();
     }

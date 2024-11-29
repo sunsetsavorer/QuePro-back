@@ -14,13 +14,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('participation_requests', function (Blueprint $table) {
+        Schema::create('participation_entries', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Tournament::class);
             $table->string('team_name');
             $table->string('captain_fullname');
             $table->string('captain_phone');
             $table->string('captain_email');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('participation_requests');
+        Schema::dropIfExists('participation_entries');
     }
 };
