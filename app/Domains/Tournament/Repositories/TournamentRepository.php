@@ -2,9 +2,12 @@
 
 namespace App\Domains\Tournament\Repositories;
 
+use App\Domains\Tournament\Entities\ParticipationEntryEntity;
 use App\Domains\Tournament\Entities\TournamentEntity;
+use App\Domains\Tournament\Exceptions\ParticipationEntryCreationException;
 use App\Domains\Tournament\Exceptions\TournamentCreationException;
 use App\Domains\Tournament\Interfaces\TournamentRepositoryInterface;
+use App\Models\ParticipationEntry;
 use App\Models\Tournament;
 use App\Models\TournamentDiscipline;
 
@@ -77,5 +80,19 @@ class TournamentRepository implements TournamentRepositoryInterface
             throw new TournamentCreationException();
 
         return $tournament->toArray();
+    }
+
+    public function createParticipationEntry(ParticipationEntryEntity $entity): void
+    {
+        $entry = ParticipationEntry::create([
+            'tournament_id' => $entity->getTournamentId(),
+            'team_name' => $entity->getTeamName(),
+            'captain_fullname' => $entity->getCaptainFullname(),
+            'captain_phone' => $entity->getCaptainPhone(),
+            'captain_email' => $entity->getCaptainEmail(),
+        ]);
+
+        if(!$entry)
+            throw new ParticipationEntryCreationException();
     }
 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('captain_fullname');
             $table->string('captain_phone');
             $table->string('captain_email');
+            $table->timestamps();
         });
     }
 

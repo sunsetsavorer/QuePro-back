@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Domains\Tournament\DTOs\CreateParticipationEntryDTO;
 use App\Domains\Tournament\DTOs\CreateTournamentDTO;
 use App\Domains\Tournament\Repositories\TournamentRepository;
+use App\Domains\Tournament\UseCases\CreateParticipationEntry;
 use App\Domains\Tournament\UseCases\CreateTournament;
 use App\Domains\Tournament\UseCases\GetTournamentDisciplines;
 use App\Domains\Tournament\UseCases\GetTournamentsList;
 use App\Domains\Tournament\UseCases\GetUserTournamentsList;
+use App\Http\Requests\Tournament\CreateParticipationEntryRequest;
 use App\Http\Requests\Tournament\CreateTournamentRequest;
+use App\Http\Resources\Tournament\CreateParticipationEntryResource;
 use App\Http\Resources\Tournament\CreateTournamentResource;
 use App\Http\Resources\Tournament\GetTournamentDisciplinesListResource;
 use App\Http\Resources\Tournament\GetTournamentsListResource;
@@ -70,5 +74,26 @@ class TournamentController extends Controller
         );
 
         return new CreateTournamentResource($result);
+    }
+
+    public function createParticipationEntry(CreateParticipationEntryRequest $request): CreateParticipationEntryResource
+    {
+        $data = $request->validated();
+
+        $useCase = new CreateParticipationEntry(
+            new TournamentRepository()
+        );
+
+        $useCase(
+            new CreateParticipationEntryDTO(
+                $data['tournament_id'],
+                $data['team_name'],
+                $data['captain_fullname'],
+                $data['captain_phone'],
+                $data['captain_email']
+            )
+        );
+
+        return new CreateParticipationEntryResource([]);
     }
 }
