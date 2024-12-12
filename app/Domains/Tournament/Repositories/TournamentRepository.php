@@ -16,6 +16,7 @@ class TournamentRepository implements TournamentRepositoryInterface
     public function getList(): array
     {
         $tournaments = Tournament::select([
+            'id',
             'name',
             'prize_fund',
             'event_date',
@@ -31,6 +32,7 @@ class TournamentRepository implements TournamentRepositoryInterface
     public function getByUserId(int $userId): array
     {
         $tournaments = Tournament::select([
+            'id',
             'name',
             'prize_fund',
             'event_date',
